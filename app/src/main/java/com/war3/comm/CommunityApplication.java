@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.comm.core.constants.Constants;
 import com.umeng.message.PushAgent;
 import com.umeng.message.UHandler;
@@ -59,6 +60,7 @@ public class CommunityApplication extends Application {
                 }
             }
         });
+        CrashReport.initCrashReport(getApplicationContext(), "900044281", false);
     }
 
 // 如果发现Method Over 65K的错误的话就反注释这段代码

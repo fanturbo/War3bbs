@@ -426,10 +426,9 @@
         <item>发出的评论</item>
     </string-array>
     <string-array name="umeng_comm_feed_titles">
-        <item>热门</item>
-        <item>推荐</item>
-        <item>关注</item>
         <item>话题</item>
+        <item>热门</item>
+        <item>关注</item>
     </string-array>
     <string-array name="umeng_simplify_feed_titles">
         <item>最新</item>

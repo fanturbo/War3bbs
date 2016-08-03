@@ -1,5 +1,5 @@
 
-package com.war3.comm;
+package com.war3.comm.activities;
 
 import android.Manifest;
 import android.content.Intent;
@@ -9,24 +9,21 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
-import android.view.Window;
+import android.widget.RadioGroup;
 
 import com.umeng.comm.core.CommunitySDK;
 import com.umeng.comm.core.beans.CommConfig;
 import com.umeng.comm.core.beans.CommUser;
 import com.umeng.comm.core.beans.FeedItem;
 import com.umeng.comm.core.beans.Topic;
-import com.umeng.comm.core.constants.Constants;
 import com.umeng.comm.core.impl.CommunityFactory;
 
 import com.umeng.comm.core.listeners.Listeners.FetchListener;
 import com.umeng.comm.core.login.LoginListener;
 import com.umeng.comm.core.login.Loginable;
-import com.umeng.comm.core.nets.Request;
 import com.umeng.comm.core.nets.responses.AlbumResponse;
 import com.umeng.comm.core.nets.responses.FeedsResponse;
 import com.umeng.comm.core.nets.responses.TopicResponse;
@@ -37,24 +34,20 @@ import com.umeng.comm.core.sdkmanager.LoginSDKManager;
 import com.umeng.comm.core.sdkmanager.ShareSDKManager;
 import com.umeng.commm.ui.fragments.CommunityMainFragment;
 
-import com.umeng.common.ui.util.CommonLoginStrategy;
 import com.umeng.common.ui.widgets.CommunityViewPager;
-import com.umeng.community.login.UMAuthService;
-import com.umeng.community.login.UMLoginServiceFactory;
-import com.umeng.community.share.UMShareServiceFactory;
-import com.umeng.message.PushAgent;
-import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.umeng.socialize.handler.QZoneSsoHandler;
-import com.umeng.socialize.handler.UMQQSsoHandler;
-import com.umeng.socialize.handler.UMWXHandler;
+import com.war3.comm.R;
+import com.war3.comm.base.BaseActivity;
 import com.war3.comm.custom.SimpleLoginImpl;
 import com.war3.comm.custom.UILImageLoader;
+import com.war3.comm.fragments.MyFragment;
+import com.war3.comm.fragments.PlayFragment;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     CommunitySDK mCommSDK = null;
     String topicId = "";
+    private RadioGroup rg; // 主页下面RadioGroup
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public int getCount() {
-                return 2;
+                return 3;
             }
 
             public SparseArray<Fragment> caches = new SparseArray<Fragment>();
@@ -84,11 +77,10 @@ public class MainActivity extends AppCompatActivity {
                             ((CommunityMainFragment)f).setBackButtonVisibility(View.GONE);
                             break;
                         case 1:
-                            f = new BlankFragment();
+                            f = new PlayFragment();
                             break;
-                        case 2:;
-                            break;
-                        case 3:
+                        case 2:
+                            f = new MyFragment();
                             break;
                     }
                     caches.put(arg0, f);

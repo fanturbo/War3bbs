@@ -1,12 +1,71 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
 
     <com.umeng.common.ui.widgets.CommunityViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></com.umeng.common.ui.widgets.CommunityViewPager>
+        android:layout_height="0dip"
+        android:layout_weight="1.0"></com.umeng.common.ui.widgets.CommunityViewPager>
+
+    <RadioGroup
+        android:id="@+id/rg"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/space_120"
+        android:layout_gravity="bottom"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/space_4">
+
+        <RadioButton
+            android:id="@+id/rb_home"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="#f5f5f5"
+            android:button="@null"
+            android:drawableTop="@drawable/bg_find_selector"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:paddingTop="@dimen/space_8"
+            android:singleLine="true"
+            android:text="首页"
+            android:textColor="@color/bg_main" />
+
+        <RadioButton
+            android:id="@+id/rb_my"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="#f5f5f5"
+            android:button="@null"
+            android:drawableTop="@drawable/bg_find_selector"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:paddingTop="@dimen/space_8"
+            android:singleLine="true"
+            android:text="直播"
+            android:textColor="@color/bg_main" />
 
 
-</FrameLayout>
+        <RadioButton
+            android:id="@+id/rb_download"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="#f5f5f5"
+            android:button="@null"
+            android:drawableTop="@drawable/bg_find_selector"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:paddingTop="@dimen/space_8"
+            android:singleLine="true"
+            android:text="我的"
+            android:textColor="@color/bg_main" />
+
+    </RadioGroup>
+</LinearLayout>

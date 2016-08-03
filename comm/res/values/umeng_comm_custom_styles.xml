@@ -7,7 +7,7 @@
     <!--</style>-->
     <style name="NightTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
-        <item name="default_background_color">@color/umeng_comm_black_color</item>
+        <item name="default_background_color">@color/umeng_comm_white_color</item>
         <item name="umeng_comm_indicator_default">@color/umeng_comm_feed_detail_pressed_yellow</item>
         <item name="umeng_comm_indicator_highlight">@android:color/holo_red_dark</item>
         <item name="umeng_post_feed_button">@drawable/umeng_comm_new_post_btn_style</item>
