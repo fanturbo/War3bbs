@@ -33,10 +33,10 @@
     <!-- 消息流listview下拉刷新的header上的四个颜色值 -->
     <color name="umeng_comm_12bdbf">#12bdbf</color>
     <color name="umeng_comm_21aaab">#21aaab</color>
-    <color name="umeng_comm_lv_header_color1">#A1A1A1</color>
-    <color name="umeng_comm_lv_header_color2">#BFBFBF</color>
-    <color name="umeng_comm_lv_header_color3">#DDDDDD</color>
-    <color name="umeng_comm_lv_header_color4">#DEDEDE</color>
+    <color name="umeng_comm_lv_header_color1">#ff3f8edf</color>
+    <color name="umeng_comm_lv_header_color2">#ffffbb33</color>
+    <color name="umeng_comm_lv_header_color3">#ffff4444</color>
+    <color name="umeng_comm_lv_header_color4">#ffaa66cc</color>
 
     <!-- 剪切图片页面，paint的颜色 -->
     <color name="umeng_comm_clip_image_paint">#aa000000</color>

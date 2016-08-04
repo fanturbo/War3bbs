@@ -124,35 +124,8 @@ public class TopicFragment extends TopicBaseFragment {
 
             @Override
             public void onClick(View v) {
-                if (CommonUtils.visitNum == 0) {
-                    if (CommonUtils.isLogin(getActivity())) {
-                        Intent intent = new Intent(getActivity(), SearchTopicActivity.class);
-                        getActivity().startActivity(intent);
-                    } else {
-                        CommunitySDKImpl.getInstance().login(getActivity(), new LoginListener() {
-                            @Override
-                            public void onStart() {
-                                if (getActivity() != null && !getActivity().isFinishing()) {
-                                    mProcessDialog.show();
-                                }
-                            }
-
-                            @Override
-                            public void onComplete(int code, CommUser userInfo) {
-                                if (getActivity() != null && !getActivity().isFinishing()) {
-                                    mProcessDialog.dismiss();
-                                }
-                                if (code == 0) {
-                                    Intent intent = new Intent(getActivity(), SearchTopicActivity.class);
-                                    getActivity().startActivity(intent);
-                                }
-                            }
-                        });
-                    }
-                } else {
-                    Intent intent = new Intent(getActivity(), SearchTopicActivity.class);
-                    getActivity().startActivity(intent);
-                }
+                Intent intent = new Intent(getActivity(), SearchTopicActivity.class);
+                getActivity().startActivity(intent);
             }
         });
         TextView searchtv = (TextView) headerView.findViewById(ResFinder.getId("umeng_comm_comment_send_button"));

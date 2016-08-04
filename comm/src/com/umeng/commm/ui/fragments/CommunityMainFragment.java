@@ -121,6 +121,7 @@ public class CommunityMainFragment extends BaseFragment<Void, NullPresenter> imp
     /**
      * 含有未读消息时的红点视图
      */
+    private View mBadgeView;
     //    private PopupWindow hotPop, topicPop;
     public int TopicType = 2;
 
@@ -178,12 +179,40 @@ public class CommunityMainFragment extends BaseFragment<Void, NullPresenter> imp
 
         mTitleLayout.setVisibility(mTitleVisible);
 
+        mBadgeView = findViewById(ResFinder.getId("umeng_comm_badge_view"));
+        mBadgeView.setVisibility(View.INVISIBLE);
+        //
+        mProfileBtn = (ImageView) rootView
+                .findViewById(ResFinder.getId("umeng_comm_user_info_btn"));
+        mProfileBtn.setOnClickListener(
+                new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (mBadgeView != null) {
+                            mBadgeView.setVisibility(View.INVISIBLE);
+                        }
+//                    CommunitySDKImpl.getInstance().fetchAccessToken(null);
+                        gotoFindActivity(CommConfig.getConfig().loginedUser);
+                    }
+                }
+//                new LoginOnViewClickListener() {
+//            @Override
+//            protected void doAfterLogin(View v) {
+//                if (mBadgeView != null) {
+//                    mBadgeView.setVisibility(View.INVISIBLE);
+//                }
+//
+//                    gotoFindActivity(CommConfig.getConfig().loginedUser);
+//
+//            }
+//        }
+        );
         indicator = (MainIndicator) rootView.findViewById(ResFinder
                 .getId("umeng_comm_segment_view"));
         // 设置tabs
 //        String[] titles = new String[]{"热门", "推荐", "关注", "话题"};
         indicator.setTabItemTitles(mTitles);
-        indicator.setVisibleTabCount(3);
+        indicator.setVisibleTabCount(4);
         initPopwindow();
         initTopicPopWindow();
         indicator.SetIndictorClick(mIndicatorListerner);
@@ -266,9 +295,9 @@ public class CommunityMainFragment extends BaseFragment<Void, NullPresenter> imp
     public void onResume() {
         super.onResume();
         if (mUnreadMsg.unReadTotal > 0 && CommonUtils.isLogin(getActivity())) {
-            //TODO 给发现页面发消息
+            mBadgeView.setVisibility(View.VISIBLE);
         } else {
-            //TODO 给发现页面发消息
+            mBadgeView.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -407,10 +436,9 @@ public class CommunityMainFragment extends BaseFragment<Void, NullPresenter> imp
             }
         } else {
             mFeedListBaseFragments.add(new HotFeedsFragment());
-            mFeedListBaseFragments.add(new RecommendFeedFragment());
             mFeedListBaseFragments.add(new AllFeedsFragment());
             fragments.add(new TopicMainFragment());
-            mCurrentFragment = mFeedListBaseFragments.get(0);
+            mCurrentFragment = fragments.get(0);
         }
 
     }
@@ -441,10 +469,10 @@ public class CommunityMainFragment extends BaseFragment<Void, NullPresenter> imp
 //        } else if (pos == 3) {
 //            fragment = mTopicFragment;
 //        }
-        if (pos < mFeedListBaseFragments.size()) {
-            fragment = mFeedListBaseFragments.get(pos);
+        if (pos < fragments.size()) {
+            fragment = fragments.get(pos);
         } else {
-            fragment = fragments.get(pos - mFeedListBaseFragments.size());
+            fragment = mFeedListBaseFragments.get(pos - fragments.size());
         }
         return fragment;
     }
@@ -490,7 +518,7 @@ public class CommunityMainFragment extends BaseFragment<Void, NullPresenter> imp
     public void onFetchUnReadMsg(MessageCount unreadMsg) {
         this.mUnreadMsg = unreadMsg;
         if (mUnreadMsg.unReadTotal > 0) {
-            //TODO 给发现页面发消息
+            mBadgeView.setVisibility(View.VISIBLE);
         }
     }
 

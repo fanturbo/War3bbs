@@ -61,8 +61,17 @@ public class CommunityApplication extends Application {
             }
         });
         CrashReport.initCrashReport(getApplicationContext(), "900044281", false);
+        initDefaultCatch();
     }
+    private void initDefaultCatch() {
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
 
+            @Override
+            public void uncaughtException(Thread thread, Throwable ex) {
+                CrashReport.postCatchedException(ex);
+            }
+        });
+    }
 // 如果发现Method Over 65K的错误的话就反注释这段代码
 //    @Override
 //    protected void attachBaseContext(Context base) {

@@ -18,19 +18,38 @@
         android:scaleType="centerInside"
         android:src="?attr/umeng_comm_backbutton_src" />
 
+    <View
+        android:id="@+id/umeng_comm_badge_view"
+        android:layout_width="@dimen/umeng_comm_dimen_12px"
+        android:layout_height="@dimen/umeng_comm_dimen_12px"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/umeng_comm_dimen_20px"
+        android:layout_marginTop="@dimen/umeng_comm_dimen_16px"
+        android:background="?attr/umeng_comm_red_point"
+        android:visibility="invisible" />
+
+    <!-- 发现按钮 -->
+
+    <ImageView
+        android:id="@+id/umeng_comm_user_info_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/umeng_comm_badge_view"
+        android:contentDescription="@string/umeng_comm_new_post"
+        android:paddingLeft="@dimen/umeng_comm_dimen_10px"
+        android:paddingRight="@dimen/umeng_comm_dimen_10px"
+        android:src="?attr/umeng_comm_find_button" />
 
     <!-- tab组件 -->
     <com.umeng.common.ui.widgets.MainIndicator
         android:id="@+id/umeng_comm_segment_view"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/umeng_comm_dimen_480px"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
         android:layout_gravity="top|center"
-        android:layout_marginLeft="15dp"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingRight="@dimen/action_bar_padding" />
+        android:orientation="horizontal" />
 
     <!--<SegmentView-->
     <!--android:id="@+id/umeng_comm_segment_view"-->

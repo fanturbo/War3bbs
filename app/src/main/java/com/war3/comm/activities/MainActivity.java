@@ -14,6 +14,7 @@ import android.util.SparseArray;
 import android.view.View;
 import android.widget.RadioGroup;
 
+import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.comm.core.CommunitySDK;
 import com.umeng.comm.core.beans.CommConfig;
 import com.umeng.comm.core.beans.CommUser;
@@ -39,7 +40,6 @@ import com.war3.comm.R;
 import com.war3.comm.base.BaseActivity;
 import com.war3.comm.custom.SimpleLoginImpl;
 import com.war3.comm.custom.UILImageLoader;
-import com.war3.comm.fragments.MyFragment;
 import com.war3.comm.fragments.PlayFragment;
 
 
@@ -63,7 +63,7 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public int getCount() {
-                return 3;
+                return 1;
             }
 
             public SparseArray<Fragment> caches = new SparseArray<Fragment>();
@@ -76,12 +76,6 @@ public class MainActivity extends BaseActivity {
                             f = new CommunityMainFragment();
                             ((CommunityMainFragment)f).setBackButtonVisibility(View.GONE);
                             break;
-                        case 1:
-                            f = new PlayFragment();
-                            break;
-                        case 2:
-                            f = new MyFragment();
-                            break;
                     }
                     caches.put(arg0, f);
                 }
@@ -91,10 +85,10 @@ public class MainActivity extends BaseActivity {
         //设置ViewPager的Adapter
         viewPager.setAdapter(adapter);
         /**如果使用android6.0适配，需要加入以下代码，获取对应权限*/
-        String[] mPermissionList = new String[]{Manifest.permission.CHANGE_CONFIGURATION,Manifest.permission.CHANGE_WIFI_STATE,Manifest.permission.WAKE_LOCK,Manifest.permission.WRITE_SETTINGS,Manifest.permission.VIBRATE,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_LOGS,Manifest.permission.READ_PHONE_STATE};
-        if(Build.VERSION.SDK_INT>=23){
-            requestPermissions(mPermissionList,100);
-        }
+//        String[] mPermissionList = new String[]{Manifest.permission.CHANGE_CONFIGURATION,Manifest.permission.CHANGE_WIFI_STATE,Manifest.permission.WAKE_LOCK,Manifest.permission.WRITE_SETTINGS,Manifest.permission.VIBRATE,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_LOGS,Manifest.permission.READ_PHONE_STATE};
+//        if(Build.VERSION.SDK_INT>=23){
+//            requestPermissions(mPermissionList,100);
+//        }
         // =================== 自定义设置部分 =================
         // 在初始化CommunitySDK之前配置推送和登录等组件
 //        useSocialLogin();

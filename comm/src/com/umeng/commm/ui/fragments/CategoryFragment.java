@@ -44,24 +44,26 @@ public class CategoryFragment extends BaseFragment<List<Category>, CategoryPrese
         implements MvpCategoryView {
 
     private CategoryAdapter mAdapter;
-    private BackupAdapter<Topic, ?>  topicAdapter;
+    private BackupAdapter<Topic, ?> topicAdapter;
     protected ListView mCategoryListView;
     protected RefreshLvLayout mRefreshLvLayout;
     protected BaseView mBaseView;
     protected View mSearchLayout;
-//    private EditText mSearchEdit;
+    //    private EditText mSearchEdit;
     private boolean mIsBackup = false;
     private InputMethodManager mInputMan;
 
     protected Dialog mProcessDialog;
 
     private boolean isFirstCreate = true;
+
     public CategoryFragment() {
     }
 
     public static CategoryFragment newCategoryFragment() {
         return new CategoryFragment();
     }
+
     @Override
     protected void initWidgets() {
         super.initWidgets();
@@ -74,6 +76,7 @@ public class CategoryFragment extends BaseFragment<List<Category>, CategoryPrese
         mInputMan = (InputMethodManager) getActivity().getSystemService(
                 Context.INPUT_METHOD_SERVICE);
     }
+
     /**
      * 初始化搜索话题View跟事件处理</br>
      *
@@ -86,40 +89,14 @@ public class CategoryFragment extends BaseFragment<List<Category>, CategoryPrese
 
             @Override
             public void onClick(View v) {
-                if(CommonUtils.visitNum == 0){
-                    if (CommonUtils.isLogin(getActivity())){
-                        Intent intent = new Intent(getActivity(), SearchTopicActivity.class);
-                        getActivity().startActivity(intent);
-                    } else {
-                        CommunitySDKImpl.getInstance().login(getActivity(), new LoginListener() {
-                            @Override
-                            public void onStart() {
-                                if (getActivity()!=null&&!getActivity().isFinishing()){
-                                    mProcessDialog.show();
-                                }
-                            }
+                Intent intent = new Intent(getActivity(), SearchTopicActivity.class);
+                getActivity().startActivity(intent);
 
-                            @Override
-                            public void onComplete(int code, CommUser userInfo) {
-                                if (getActivity()!=null&&!getActivity().isFinishing()){
-                                    mProcessDialog.dismiss();
-                                }
-                                if (code == 0) {
-                                    Intent intent = new Intent(getActivity(), SearchTopicActivity.class);
-                                    getActivity().startActivity(intent);
-                                }
-                            }
-                        });
-                    }
-                }else {
-                    Intent intent = new Intent(getActivity(), SearchTopicActivity.class);
-                    getActivity().startActivity(intent);
-                }
             }
         });
-        TextView  searchtv = (TextView) headerView.findViewById(ResFinder.getId("umeng_comm_comment_send_button"));
+        TextView searchtv = (TextView) headerView.findViewById(ResFinder.getId("umeng_comm_comment_send_button"));
         searchtv.setText(ResFinder.getString("umeng_comm_search_topic"));
-        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)searchtv.getLayoutParams();
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) searchtv.getLayoutParams();
         params.topMargin = 0;
         params.bottomMargin = CommonUtils.dip2px(getActivity(), 7);
         mSearchLayout = findViewById(ResFinder.getId("umeng_comm_topic_search_title_layout"));
@@ -156,19 +133,19 @@ public class CategoryFragment extends BaseFragment<List<Category>, CategoryPrese
         int refreshResId = ResFinder.getId("umeng_comm_topic_refersh");
         mRefreshLvLayout = (RefreshLvLayout) rootView.findViewById(refreshResId);
 
-            mRefreshLvLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mRefreshLvLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
-                @Override
-                public void onRefresh() {
-                    mPresenter.loadDataFromServer();
-                }
-            });
-            mRefreshLvLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
-                @Override
-                public void onLoad() {
-                    mPresenter.loadMoreData();
-                }
-            });
+            @Override
+            public void onRefresh() {
+                mPresenter.loadDataFromServer();
+            }
+        });
+        mRefreshLvLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
+            @Override
+            public void onLoad() {
+                mPresenter.loadMoreData();
+            }
+        });
 
 
         int listViewResId = ResFinder.getId("umeng_comm_topic_listview");
@@ -181,7 +158,7 @@ public class CategoryFragment extends BaseFragment<List<Category>, CategoryPrese
         mBaseView.setEmptyViewText(ResFinder.getString("umeng_comm_no_topic"));
     }
 
-        protected void initTitleView(View rootView) {
+    protected void initTitleView(View rootView) {
 //            int searchButtonResId = ResFinder.getId("umeng_comm_topic_search");
 //            rootView.findViewById(searchButtonResId).setOnClickListener(
 //                    new Listeners.LoginOnViewClickListener() {
@@ -200,7 +177,7 @@ public class CategoryFragment extends BaseFragment<List<Category>, CategoryPrese
 //            int paddingTop = mSearchEdit.getPaddingTop();
 //            int paddingBottom = mSearchEdit.getPaddingBottom();
 //            mSearchEdit.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
-        }
+    }
 
     protected void initAdapter() {
         CategoryAdapter adapter = new CategoryAdapter(getActivity());
@@ -208,18 +185,19 @@ public class CategoryFragment extends BaseFragment<List<Category>, CategoryPrese
         mAdapter = adapter;
 
         mCategoryListView.setAdapter(mAdapter);
-        mCategoryListView.setDividerHeight(CommonUtils.dip2px(getActivity(),1));
+        mCategoryListView.setDividerHeight(CommonUtils.dip2px(getActivity(), 1));
         mCategoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 //                mPresenter.loadTopic(getBindDataSource().get(i).id);
 //                com.umeng.comm.core.utils.Log.e("xxxxxx", "i = " + i + "   size = " + getBindDataSource().size());
-                Intent intent = new Intent(getActivity(),TopicActivity.class);
-                intent.putExtra("uid",getBindDataSource().get(i-1).id);
+                Intent intent = new Intent(getActivity(), TopicActivity.class);
+                intent.putExtra("uid", getBindDataSource().get(i - 1).id);
                 getActivity().startActivity(intent);
             }
         });
     }
+
     @Override
     protected int getFragmentLayout() {
         return ResFinder.getLayout("umeng_comm_category_recommend");
@@ -281,7 +259,7 @@ public class CategoryFragment extends BaseFragment<List<Category>, CategoryPrese
     @Override
     public void onDetach() {
         super.onDetach();
-        if(mProcessDialog != null){
+        if (mProcessDialog != null) {
             mProcessDialog.dismiss();
         }
     }

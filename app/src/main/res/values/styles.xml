@@ -4,8 +4,8 @@
     <style name="AppTheme" parent="NightTheme">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/umeng_comm_white_color</item>
-        <item name="colorPrimaryDark">@color/umeng_comm_white_color</item>
-        <item name="colorAccent">@color/umeng_comm_color_transparent</item>
+        <item name="colorPrimaryDark">@color/umeng_comm_black_color</item>
+        <item name="colorAccent">@color/umeng_comm_feed_detail_blue</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/umeng_comm_comment_send_button"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/umeng_comm_dimen_56px"
+        android:layout_height="@dimen/umeng_comm_dimen_64px"
         android:layout_marginBottom="@dimen/umeng_comm_dimen_6px"
         android:layout_marginLeft="@dimen/umeng_comm_dimen_10px"
         android:layout_marginRight="@dimen/umeng_comm_dimen_10px"

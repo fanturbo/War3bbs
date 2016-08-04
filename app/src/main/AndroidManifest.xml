@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.war3.comm">
+    package="com.war3.comm"
+    android:versionCode="1"
+    android:versionName="1.0">
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -64,6 +66,7 @@
     <uses-permission android:name="android.permission.READ_SMS" />
 
     <application
+        android:name=".CommunityApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -254,14 +257,14 @@
 
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="568e1123e0f55a8a3f001521"></meta-data>
+            android:value="57a1a0cce0f55ac1e1002f66"></meta-data>
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
-            android:value="a56a4db7b0ba85b4b3c545c62acd8975"></meta-data>
+            android:value="8b75a8054395a996068c77de9ced19c1"></meta-data>
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="557e18d1afb32a69351be5abc7f1cd25" />
+            android:value="77f6f7830cbee4b06b5e0b66c1b28cf9" />
 
 
         <activity
