@@ -4,10 +4,12 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.comm.core.constants.Constants;
+import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
 import com.umeng.message.UHandler;
 import com.umeng.message.UmengMessageHandler;
@@ -58,6 +60,19 @@ public class CommunityApplication extends Application {
                 } catch (Exception e) {
                     com.umeng.comm.core.utils.Log.d("class", e.getMessage());
                 }
+            }
+        });
+        PushAgent.getInstance(this).enable(new IUmengRegisterCallback() {
+
+            @Override
+            public void onRegistered(final String registrationId) {
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        //onRegistered方法的参数registrationId即是device_token
+                        Log.d("device_token", registrationId);
+                    }
+                });
             }
         });
         CrashReport.initCrashReport(getApplicationContext(), "900044281", false);

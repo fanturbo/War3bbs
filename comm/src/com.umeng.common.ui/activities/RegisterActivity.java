@@ -100,13 +100,12 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 @Override
                 public void onComplete(int stCode, CommUser userInfo) {
                     dialog.dismiss();
-                    if (stCode == ErrorCode.NO_ERROR||stCode == ErrorCode.ERR_CODE_USER_NAME_DUPLICATE) {
-                        Log.e("xxxxxx", "finish!!!!!!!");
+                    if (stCode == ErrorCode.NO_ERROR) {
                         finish();
-                        if (stCode == ErrorCode.NO_ERROR) {
-                            ToastMsg.showShortMsgByResName("umeng_comm_register_success");
-                        }
+                        ToastMsg.showShortMsgByResName("umeng_comm_register_success");
                         mRegisterListener.onComplete(stCode, userInfo);
+                    } else if (stCode == ErrorCode.ERR_CODE_USER_NAME_DUPLICATE) {
+                        ToastMsg.showShortMsgByResName("umeng_comm_duplicate_name");
                     }
                 }
             }, secret);
@@ -119,8 +118,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             this.finish();
         }
     }
-
-
 
 
 }
