@@ -436,6 +436,7 @@ public class CommunityMainFragment extends BaseFragment<Void, NullPresenter> imp
             }
         } else {
             mFeedListBaseFragments.add(new HotFeedsFragment());
+            mFeedListBaseFragments.add(new RecommendFeedFragment());
             mFeedListBaseFragments.add(new AllFeedsFragment());
             fragments.add(new TopicMainFragment());
             mCurrentFragment = fragments.get(0);

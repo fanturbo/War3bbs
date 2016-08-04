@@ -94,35 +94,8 @@ public class RecommendFeedFragment extends PostBtnAnimFragment<RecommendFeedPres
         headerView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (CommonUtils.visitNum == 0) {
-                    if (CommonUtils.isLogin(getActivity())) {
-                        Intent intent = new Intent(getActivity(), SearchActivity.class);
-                        getActivity().startActivity(intent);
-                    } else {
-                        CommunitySDKImpl.getInstance().login(getActivity(), new LoginListener() {
-                            @Override
-                            public void onStart() {
-                                if (getActivity() != null && !getActivity().isFinishing()) {
-                                    mProcessDialog.show();
-                                }
-                            }
-
-                            @Override
-                            public void onComplete(int stCode, CommUser userInfo) {
-                                if (getActivity() != null && !getActivity().isFinishing()) {
-                                    mProcessDialog.dismiss();
-                                }
-                                if (stCode == 0) {
-                                    Intent intent = new Intent(getActivity(), SearchActivity.class);
-                                    getActivity().startActivity(intent);
-                                }
-                            }
-                        });
-                    }
-                } else {
-                    Intent intent = new Intent(getActivity(), SearchActivity.class);
-                    getActivity().startActivity(intent);
-                }
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                getActivity().startActivity(intent);
             }
         });
         mFeedsListView.addHeaderView(headerView, null, false);
