@@ -34,12 +34,16 @@ public class CommonLoginStrategy extends AbsLoginResultStrategy {
             AVObject testObject = new AVObject("War3er");
             testObject.put("uid", ContantsHelper.id);
             testObject.put("name", user.name);
-            testObject.put("source", user.source);
+            testObject.put("source", user.source == null ? "" : user.source.toString());
             testObject.put("secret", Constants.USER_PASSWORD);
             testObject.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(AVException e) {
-
+                    if (e == null) {
+                        Log.i("status", "save success");
+                    } else {
+                        Log.i("status", e.toString());
+                    }
                 }
             });
             gotoUpdateUserPage(context, user, isUserNameInvalid, loginStyle);

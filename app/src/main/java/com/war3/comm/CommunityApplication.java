@@ -11,7 +11,6 @@ import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVUser;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.comm.core.constants.Constants;
-import com.umeng.commm.ui.beans.War3er;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
 import com.umeng.message.UHandler;
@@ -80,7 +79,6 @@ public class CommunityApplication extends Application {
         });
         CrashReport.initCrashReport(getApplicationContext(), "900044281", false);
         initDefaultCatch();
-        AVUser.alwaysUseSubUserClass(War3er.class);
         AVOSCloud.initialize(this, "lEosXaVHjTFifebFQYQojDdv-gzGzoHsz", "qgFkDIsVBzMEPLo8vodz1oDP");
     }
 
