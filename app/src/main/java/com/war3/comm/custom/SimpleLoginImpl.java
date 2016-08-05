@@ -38,10 +38,7 @@ public class SimpleLoginImpl extends AbsLoginImpl {
     @Override
     protected void onLogin(Context context, final LoginListener listener) {
         // 包装一下Listener
-        CustonLoginActivity.sLoginListener = listener;
         // 跳转到你的Activity
-        Intent intent = new Intent(context, CustonLoginActivity.class);
-        context.startActivity(intent);
     }
 
 }

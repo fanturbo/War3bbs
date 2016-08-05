@@ -85,8 +85,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".custom.CustonLoginActivity" />
-
 
         <activity
             android:name="com.umeng.commm.ui.activities.FindActivity"

@@ -2,9 +2,14 @@ package com.umeng.common.ui.util;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.SaveCallback;
 import com.umeng.comm.core.beans.CommConfig;
 import com.umeng.comm.core.beans.CommUser;
+import com.umeng.comm.core.beans.Source;
 import com.umeng.comm.core.constants.Constants;
 import com.umeng.comm.core.constants.ErrorCode;
 import com.umeng.comm.core.login.AbsLoginResultStrategy;
@@ -18,13 +23,26 @@ import com.umeng.common.ui.activities.SettingActivity;
 public class CommonLoginStrategy extends AbsLoginResultStrategy {
 
     @Override
-    public void onLoginResult(Context context,CommUser user,LoginResponse response,int loginStyle) {
+    public void onLoginResult(Context context, CommUser user, LoginResponse response, int loginStyle) {
         boolean isUserNameInvalid = isUserNameInvalid(response);
+        if (isUserNameInvalid && !(user.source == Source.WEIXIN || user.source == Source.SINA || user.source == Source.QQ)) {
+            return;
+        }
         // 第一次登录( 注册 )
         if (response.isFirstTimeLogin
-                && response.errCode == ErrorCode.NO_ERROR
-                || isUserNameInvalid) {
-            gotoUpdateUserPage(context, user, isUserNameInvalid,loginStyle);
+                && response.errCode == ErrorCode.NO_ERROR) {
+            AVObject testObject = new AVObject("War3er");
+            testObject.put("uid", ContantsHelper.id);
+            testObject.put("name", user.name);
+            testObject.put("source", user.source);
+            testObject.put("secret", Constants.USER_PASSWORD);
+            testObject.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(AVException e) {
+
+                }
+            });
+            gotoUpdateUserPage(context, user, isUserNameInvalid, loginStyle);
         }
     }
 
@@ -77,6 +95,7 @@ public class CommonLoginStrategy extends AbsLoginResultStrategy {
         intent.putExtra(Constants.LOGIN_STYLE, loginStyle);
         context.startActivity(intent);
     }
+
     protected boolean isUserNameInvalid(LoginResponse response) {
         return CommonUtils.checkUserNameStatus(response.errCode);
     }

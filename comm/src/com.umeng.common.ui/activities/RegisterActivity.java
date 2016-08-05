@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.umeng.comm.core.beans.CommConfig;
 import com.umeng.comm.core.beans.CommUser;
 import com.umeng.comm.core.constants.Constants;
 import com.umeng.comm.core.constants.ErrorCode;
@@ -23,6 +24,7 @@ import com.umeng.comm.core.utils.ResFinder;
 import com.umeng.comm.core.utils.ToastMsg;
 import com.umeng.common.ui.colortheme.ColorQueque;
 import com.umeng.common.ui.dialogs.CustomCommomDialog;
+import com.umeng.common.ui.util.ContantsHelper;
 
 
 /**
@@ -78,6 +80,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             CommUser user = new CommUser();
             user.id = name;
             user.name = nickname;
+            ContantsHelper.id = name;
             Constants.USER_PASSWORD = secret;
             if (!name.contains("@")) {
                 ToastMsg.showShortMsgByResName("umeng_comm_login_illuid");
@@ -104,8 +107,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                         finish();
                         ToastMsg.showShortMsgByResName("umeng_comm_register_success");
                         mRegisterListener.onComplete(stCode, userInfo);
-                    } else if (stCode == ErrorCode.ERR_CODE_USER_NAME_DUPLICATE) {
-                        ToastMsg.showShortMsgByResName("umeng_comm_duplicate_name");
                     }
                 }
             }, secret);
