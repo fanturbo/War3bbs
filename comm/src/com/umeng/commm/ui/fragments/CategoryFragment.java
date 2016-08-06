@@ -191,13 +191,9 @@ public class CategoryFragment extends BaseFragment<List<Category>, CategoryPrese
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 //                mPresenter.loadTopic(getBindDataSource().get(i).id);
 //                com.umeng.comm.core.utils.Log.e("xxxxxx", "i = " + i + "   size = " + getBindDataSource().size());
-                if ("57a3062eea77f7baed50f3be".equals(getBindDataSource().get(i - 1).id)) {
-                    //TODO 跳转到war3百科介绍
-                } else {
-                    Intent intent = new Intent(getActivity(), TopicActivity.class);
-                    intent.putExtra("uid", getBindDataSource().get(i - 1).id);
-                    getActivity().startActivity(intent);
-                }
+                Intent intent = new Intent(getActivity(), TopicActivity.class);
+                intent.putExtra("uid", getBindDataSource().get(i - 1).id);
+                getActivity().startActivity(intent);
             }
         });
     }
