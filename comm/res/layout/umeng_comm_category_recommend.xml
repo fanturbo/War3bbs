@@ -2,30 +2,46 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <include
         android:id="@+id/umeng_comm_topic_search_title_layout"
         layout="@layout/umeng_comm_search_header_view" />
 
-    <com.umeng.common.ui.widgets.RefreshLvLayout
-        android:id="@+id/umeng_comm_topic_refersh"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/umeng_comm_topic_search_title_layout" >
+        android:layout_height="match_parent">
 
-        <ListView
-            android:id="@+id/umeng_comm_topic_listview"
+        <com.umeng.common.ui.widgets.RefreshLvLayout
+            android:id="@+id/umeng_comm_topic_refersh"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="@null"
-            android:fadingEdge="none"
-            android:fadingEdgeLength="0.0sp"
-            android:fastScrollEnabled="false"
-            android:listSelector="@android:color/transparent"
-            android:scrollbars="none"
-            android:scrollingCache="false" />
-    </com.umeng.common.ui.widgets.RefreshLvLayout>
+            android:layout_below="@id/umeng_comm_topic_search_title_layout">
+
+            <ListView
+                android:id="@+id/umeng_comm_topic_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@null"
+                android:fadingEdge="none"
+                android:fadingEdgeLength="0.0sp"
+                android:fastScrollEnabled="false"
+                android:listSelector="@android:color/transparent"
+                android:scrollbars="none"
+                android:scrollingCache="false" />
+
+        </com.umeng.common.ui.widgets.RefreshLvLayout>
+
+        <ImageView
+            android:id="@+id/post_play"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:contentDescription="@string/umeng_comm_new_post"
+            android:src="@drawable/umeng_comm_new_post_play" />
+    </FrameLayout>
 
     <com.umeng.common.ui.widgets.BaseView
         android:id="@+id/umeng_comm_baseview"

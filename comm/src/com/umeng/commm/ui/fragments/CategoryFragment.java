@@ -5,21 +5,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.umeng.comm.core.beans.Category;
-import com.umeng.comm.core.beans.CommUser;
 import com.umeng.comm.core.beans.Topic;
-import com.umeng.comm.core.impl.CommunitySDKImpl;
-import com.umeng.comm.core.login.LoginListener;
 import com.umeng.comm.core.utils.CommonUtils;
 import com.umeng.comm.core.utils.ResFinder;
+import com.umeng.commm.ui.live.LiveActivity;
 import com.umeng.commm.ui.activities.SearchTopicActivity;
 import com.umeng.commm.ui.activities.TopicActivity;
 import com.umeng.commm.ui.adapters.CategoryAdapter;
@@ -34,6 +36,7 @@ import com.umeng.common.ui.util.FontUtils;
 import com.umeng.common.ui.widgets.BaseView;
 import com.umeng.common.ui.widgets.RefreshLayout;
 import com.umeng.common.ui.widgets.RefreshLvLayout;
+import com.umeng_community_library_project.R;
 
 import java.util.List;
 
@@ -42,6 +45,16 @@ import java.util.List;
  */
 public class CategoryFragment extends BaseFragment<List<Category>, CategoryPresenter>
         implements MvpCategoryView {
+
+    private static final int STATUS_NORMAL = 0x01;// 正常状态。无意义
+    private static final int STATUS_SHOW = 0x02;// 显示状态
+    private static final int STATUS_DISMISS = 0x03;// 隐藏状态
+
+    private int mLastScrollY = 0;// 上次滑动时Y的起始坐标
+    private int mSlop;
+    private transient int currentStatus = STATUS_NORMAL; // 当前Float Button的状态
+    private transient boolean isExecutingAnim = false; // 是否正在执行动画
+
 
     private CategoryAdapter mAdapter;
     private BackupAdapter<Topic, ?> topicAdapter;
@@ -52,7 +65,10 @@ public class CategoryFragment extends BaseFragment<List<Category>, CategoryPrese
     //    private EditText mSearchEdit;
     private boolean mIsBackup = false;
     private InputMethodManager mInputMan;
-
+    /**
+     * 点击进入直播列表的button
+     */
+    protected ImageView mPostBtn;
     protected Dialog mProcessDialog;
 
     private boolean isFirstCreate = true;
@@ -159,6 +175,13 @@ public class CategoryFragment extends BaseFragment<List<Category>, CategoryPrese
     }
 
     protected void initTitleView(View rootView) {
+        mPostBtn = (ImageView) rootView.findViewById(R.id.post_play);
+        mPostBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), LiveActivity.class));
+            }
+        });
 //            int searchButtonResId = ResFinder.getId("umeng_comm_topic_search");
 //            rootView.findViewById(searchButtonResId).setOnClickListener(
 //                    new Listeners.LoginOnViewClickListener() {
@@ -237,6 +260,14 @@ public class CategoryFragment extends BaseFragment<List<Category>, CategoryPrese
         });
         topicAdapter.addData(list);
         mCategoryListView.setAdapter(topicAdapter);
+        mCategoryListView.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                checkWhetherExecuteAnimation(event);
+                return false;
+            }
+        });
     }
 
     @Override
@@ -266,5 +297,97 @@ public class CategoryFragment extends BaseFragment<List<Category>, CategoryPrese
         if (mProcessDialog != null) {
             mProcessDialog.dismiss();
         }
+    }
+
+    /**
+     * 检查是否为Float button执行动画</br>
+     *
+     * @param event
+     */
+    private void checkWhetherExecuteAnimation(MotionEvent event) {
+        int y = (int) event.getY();
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                mLastScrollY = y;
+                break;
+
+            case MotionEvent.ACTION_MOVE:
+            case MotionEvent.ACTION_CANCEL:
+                int deltaY = mLastScrollY - y;
+                mLastScrollY = y;
+
+                if (Math.abs(deltaY) < mSlop) {
+                    return;
+                }
+                if (deltaY > 0) {
+                    executeAnimation(false);
+                } else {
+                    executeAnimation(true);
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    /**
+     * 为Float button执行动画</br>
+     *
+     * @param show 显示 or 隐藏
+     */
+    private void executeAnimation(final boolean show) {
+
+        if (isListViewEmpty()) {
+            return;
+        }
+
+        if (isExecutingAnim || (show && currentStatus == STATUS_SHOW)
+                || (!show && currentStatus == STATUS_DISMISS)) {
+            return;
+        }
+        isExecutingAnim = true;
+        int moveDis = ((FrameLayout.LayoutParams) (mPostBtn.getLayoutParams())).bottomMargin
+                + mPostBtn.getHeight();
+        Animation animation = null;
+        if (show) {
+            animation = new TranslateAnimation(0, 0, moveDis, 0);
+        } else {
+            animation = new TranslateAnimation(0, 0, 0, moveDis);
+        }
+        animation.setDuration(300);
+        animation.setFillAfter(true);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                isExecutingAnim = false;
+                if (show) {
+                    currentStatus = STATUS_SHOW;
+                } else {
+                    currentStatus = STATUS_DISMISS;
+                }
+                // 对于3.0以下系统，原来的地方仍有点击事件。由于我们的需要是处理可见性，因此此处不在对Float
+                // Button做layout处理。
+                mPostBtn.setClickable(show);
+            }
+        });
+        mPostBtn.startAnimation(animation);
+    }
+
+    private boolean isListViewEmpty() {
+        int count = mCategoryListView.getAdapter().getCount();
+        int otherCount = mCategoryListView.getFooterViewsCount()
+                + mCategoryListView.getHeaderViewsCount();
+        // listview中没有数据时不隐藏发布按钮
+        return count == otherCount;
     }
 }

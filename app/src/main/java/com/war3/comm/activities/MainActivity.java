@@ -1,38 +1,19 @@
 
 package com.war3.comm.activities;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.RadioGroup;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.SaveCallback;
-import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.comm.core.CommunitySDK;
 import com.umeng.comm.core.beans.CommConfig;
-import com.umeng.comm.core.beans.CommUser;
-import com.umeng.comm.core.beans.FeedItem;
-import com.umeng.comm.core.beans.Topic;
 import com.umeng.comm.core.impl.CommunityFactory;
 
-import com.umeng.comm.core.listeners.Listeners.FetchListener;
-import com.umeng.comm.core.login.LoginListener;
-import com.umeng.comm.core.login.Loginable;
-import com.umeng.comm.core.nets.responses.AlbumResponse;
-import com.umeng.comm.core.nets.responses.FeedsResponse;
-import com.umeng.comm.core.nets.responses.TopicResponse;
-import com.umeng.comm.core.nets.responses.UsersResponse;
-import com.umeng.comm.core.sdkmanager.ImageLoaderManager;
 import com.umeng.comm.core.sdkmanager.LoginSDKManager;
 
 import com.umeng.comm.core.sdkmanager.ShareSDKManager;
@@ -43,9 +24,6 @@ import com.umeng.common.ui.util.CommonLoginStrategy;
 import com.umeng.common.ui.widgets.CommunityViewPager;
 import com.war3.comm.R;
 import com.war3.comm.base.BaseActivity;
-import com.war3.comm.custom.SimpleLoginImpl;
-import com.war3.comm.custom.UILImageLoader;
-import com.war3.comm.fragments.PlayFragment;
 
 
 public class MainActivity extends BaseActivity {
@@ -58,7 +36,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.umeng_comm_live_activity);
         // 1、初始化友盟微社区
         mCommSDK = CommunityFactory.getCommSDK(this);
         useCustomLogin();
