@@ -24,6 +24,7 @@ import com.umeng.common.ui.util.CommonLoginStrategy;
 import com.umeng.common.ui.widgets.CommunityViewPager;
 import com.war3.comm.R;
 import com.war3.comm.base.BaseActivity;
+import com.xiaomi.market.sdk.XiaomiUpdateAgent;
 
 
 public class MainActivity extends BaseActivity {
@@ -37,6 +38,7 @@ public class MainActivity extends BaseActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.umeng_comm_live_activity);
+        XiaomiUpdateAgent.update(this);
         // 1、初始化友盟微社区
         mCommSDK = CommunityFactory.getCommSDK(this);
         useCustomLogin();

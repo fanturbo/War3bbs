@@ -29,7 +29,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
-
+    <uses-permission android:name="com.xiaomi.market.sdk.UPDATE" />
     <!-- 推送相关的权限 -->
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -366,7 +366,12 @@
             </intent-filter>
         </service>
         <!-- If you donot want to use the standard notification bar in SDK, you can define IntentService instead to handle message. -->
-
+        <!-- 小米更新-->
+        <receiver android:name="com.xiaomi.market.sdk.DownloadCompleteReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+            </intent-filter>
+        </receiver>
         <service
             android:name="com.umeng.message.UmengDownloadResourceService"
             android:exported="false" />
