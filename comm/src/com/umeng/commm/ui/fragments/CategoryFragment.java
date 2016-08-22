@@ -176,6 +176,7 @@ public class CategoryFragment extends BaseFragment<List<Category>, CategoryPrese
 
     protected void initTitleView(View rootView) {
         mPostBtn = (ImageView) rootView.findViewById(R.id.post_play);
+        mPostBtn.setVisibility(View.GONE);
         mPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

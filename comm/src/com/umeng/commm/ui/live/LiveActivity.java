@@ -13,13 +13,11 @@ public class LiveActivity extends AppCompatActivity {
 
     private ExpandableListView expandableListView;
     private List<Platform> platforms;
-    private SortExpandListViewAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.umeng_comm_live_activity);
-        expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
     }
 
     protected void initData() {
@@ -28,18 +26,5 @@ public class LiveActivity extends AppCompatActivity {
     }
 
     private void fillData() {
-        mAdapter = new SortExpandListViewAdapter(this, platforms);
-        expandableListView.setAdapter(mAdapter);
-        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                for (int i = 0; i < expandableListView.getExpandableListAdapter().getGroupCount(); i++) {
-                    if (expandableListView.isGroupExpanded(i) && i != groupPosition) {
-                        expandableListView.collapseGroup(i);
-                    }
-                }
-            }
-        });
-        expandableListView.expandGroup(0);
     }
 }
