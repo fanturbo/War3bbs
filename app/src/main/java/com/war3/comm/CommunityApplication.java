@@ -27,7 +27,7 @@ public class CommunityApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        PlatformConfig.setWeixin("wx96110a1e3af63a39", "c60e3d3ff109a5d17013df272df99199");
+        PlatformConfig.setWeixin("wxc93179c06472dbbe", "cf09bf5306caceb527a85c119af33000");
         //新浪微博
 //        PlatformConfig.setSinaWeibo("275392174", "d96fb6b323c60a42ed9f74bfab1b4f7a");
         PlatformConfig.setQQZone("1105592918", "yQlLNt8zYQYAF9OD");

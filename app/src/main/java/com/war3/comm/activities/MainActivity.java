@@ -10,6 +10,7 @@ import android.util.SparseArray;
 import android.view.View;
 import android.widget.RadioGroup;
 
+import com.umeng.analytics.MobclickAgent;
 import com.umeng.comm.core.CommunitySDK;
 import com.umeng.comm.core.beans.CommConfig;
 import com.umeng.comm.core.impl.CommunityFactory;
@@ -38,7 +39,11 @@ public class MainActivity extends BaseActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        XiaomiUpdateAgent.update(this);
+        MobclickAgent.setDebugMode(true);
+        MobclickAgent.openActivityDurationTrack(false);
+        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
+        MobclickAgent.setCatchUncaughtExceptions(false);
+        XiaomiUpdateAgent.update(this);
         // 1、初始化友盟微社区
         mCommSDK = CommunityFactory.getCommSDK(this);
         useCustomLogin();
