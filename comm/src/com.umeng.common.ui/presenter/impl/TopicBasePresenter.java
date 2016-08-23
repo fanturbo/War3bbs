@@ -48,6 +48,7 @@ import com.umeng.comm.core.utils.ToastMsg;
 import com.umeng.common.ui.mvpview.MvpRecommendTopicView;
 import com.umeng.common.ui.presenter.BaseFragmentPresenter;
 import com.umeng.common.ui.util.BroadcastUtils;
+import com.umeng.common.ui.util.ContantsHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -420,6 +421,7 @@ public class TopicBasePresenter extends BaseFragmentPresenter<List<Topic>> {
      */
     protected void afterUserLogout() {
         // 显示登录view
+        ContantsHelper.id = "";
         mTopicView.showLoginView();
         updateFollowStateAfterLogout();
     }

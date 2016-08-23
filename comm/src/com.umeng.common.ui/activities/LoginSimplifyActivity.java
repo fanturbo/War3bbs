@@ -214,7 +214,7 @@ public class LoginSimplifyActivity extends BaseActivity implements View.OnClickL
                 this.isHidde = true;
             }
         } else if (v.getId() == ResContainer.getResourceId(this, "id", "sina_platform_btn")) {
-            Toast.makeText(this, "Sorry,暂时不支持新浪微博", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "暂时不支持新浪微博", Toast.LENGTH_SHORT).show();
 //            this.login(this, SHARE_MEDIA.SINA);
         } else if (v.getId() == ResContainer.getResourceId(this, "id", "qq_platform_btn")) {
             this.login(this, SHARE_MEDIA.QQ);
