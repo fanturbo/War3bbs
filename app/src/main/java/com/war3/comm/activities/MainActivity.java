@@ -37,8 +37,8 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.umeng_comm_live_activity);
-        XiaomiUpdateAgent.update(this);
+        setContentView(R.layout.activity_main);
+//        XiaomiUpdateAgent.update(this);
         // 1、初始化友盟微社区
         mCommSDK = CommunityFactory.getCommSDK(this);
         useCustomLogin();
