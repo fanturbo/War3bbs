@@ -8,45 +8,21 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.SparseArray;
 import android.view.View;
-import android.widget.RadioGroup;
-
-import com.umeng.analytics.MobclickAgent;
-import com.umeng.comm.core.CommunitySDK;
-import com.umeng.comm.core.beans.CommConfig;
-import com.umeng.comm.core.impl.CommunityFactory;
-
-import com.umeng.comm.core.sdkmanager.LoginSDKManager;
 
 import com.umeng.comm.core.sdkmanager.ShareSDKManager;
 import com.umeng.commm.ui.fragments.CommunityMainFragment;
-
-import com.umeng.common.ui.presenter.impl.LoginSimplify;
-import com.umeng.common.ui.util.CommonLoginStrategy;
 import com.umeng.common.ui.widgets.CommunityViewPager;
 import com.war3.comm.R;
 import com.war3.comm.base.BaseActivity;
-import com.xiaomi.market.sdk.XiaomiUpdateAgent;
 
 
 public class MainActivity extends BaseActivity {
-
-    CommunitySDK mCommSDK = null;
-    String topicId = "";
-    private RadioGroup rg; // 主页下面RadioGroup
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        MobclickAgent.setDebugMode(true);
-        MobclickAgent.openActivityDurationTrack(false);
-        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
-        MobclickAgent.setCatchUncaughtExceptions(false);
-        XiaomiUpdateAgent.update(this);
-        // 1、初始化友盟微社区
-        mCommSDK = CommunityFactory.getCommSDK(this);
-        useCustomLogin();
         CommunityViewPager viewPager = (CommunityViewPager) findViewById(R.id.viewPager);
         FragmentPagerAdapter adapter = new FragmentPagerAdapter(
                 getSupportFragmentManager()) {
@@ -83,11 +59,6 @@ public class MainActivity extends BaseActivity {
         }*/
     }
 
-    protected void useCustomLogin() {
-        // 管理器
-        LoginSDKManager.getInstance().addAndUse(new LoginSimplify());
-        CommConfig.getConfig().setLoginResultStrategy(new CommonLoginStrategy());
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

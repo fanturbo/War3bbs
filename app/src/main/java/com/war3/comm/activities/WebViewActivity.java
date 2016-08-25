@@ -1,8 +1,10 @@
 package com.war3.comm.activities;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebChromeClient;
@@ -13,13 +15,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.umeng.comm.core.beans.ImageItem;
+import com.umeng.comm.core.beans.ShareContent;
+import com.umeng.comm.core.sdkmanager.ShareSDKManager;
 import com.umeng.socialize.ShareAction;
-import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.war3.comm.R;
 import com.war3.comm.base.BaseActivity;
+
+import java.util.List;
 
 public class WebViewActivity extends BaseActivity {
 
@@ -27,7 +33,7 @@ public class WebViewActivity extends BaseActivity {
     private WebView home_slider_webView;
     private String url = "";
     private String name = "";
-    private String shareContent = "";
+    private String shareText = "";
     private ProgressDialog progressDialog;
     private ImageView ivShare;
 
@@ -56,42 +62,23 @@ public class WebViewActivity extends BaseActivity {
         if (intent != null) {
             url = intent.getStringExtra("url");
             name = intent.getStringExtra("title");
-            shareContent = intent.getStringExtra("shareContent");
+            shareText = intent.getStringExtra("shareContent");
         }
         tvCourseTitle.setText(name);
         initwebview(url);
     }
 
     private void initShare() {
-        UMShareListener umShareListener = new UMShareListener() {
-            @Override
-            public void onResult(SHARE_MEDIA platform) {
-                if (platform.name().equals("WEIXIN_FAVORITE")) {
-                    Toast.makeText(WebViewActivity.this, platform + " 收藏成功啦", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(WebViewActivity.this, platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
-                }
-            }
+        ShareContent shareItem = new ShareContent();
+        shareItem.mText = shareText;
+        ImageItem imageItem = new ImageItem();
+        imageItem.thumbnail = "http://ac-leosxavh.clouddn.com/QCSxjZi1QKAmPJi7byZ2FkaW0EttwbnLdXQsGriR.png";
+        shareItem.mImageItem = imageItem;
+        shareItem.mTargetUrl = "http://wsq.umeng.com/feeds/57b6a224ee78506ad9bc1bef/";
 
-            @Override
-            public void onError(SHARE_MEDIA platform, Throwable t) {
-                Toast.makeText(WebViewActivity.this, platform + " 分享失败啦", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancel(SHARE_MEDIA platform) {
-                Toast.makeText(WebViewActivity.this, platform + " 分享取消了", Toast.LENGTH_SHORT).show();
-            }
-        };
-
-        new ShareAction(this)
-                .setDisplayList(SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
-                .withTitle(name)
-                .withText(shareContent)
-                .withMedia(new UMImage(this, "http://ac-leosxavh.clouddn.com/QCSxjZi1QKAmPJi7byZ2FkaW0EttwbnLdXQsGriR.png"))
-                .withTargetUrl(url)
-                .setCallback(umShareListener)
-                .open();
+        shareItem.mFeedId = "57b6a224ee78506ad9bc1bef";
+        shareItem.mTitle = name;
+        ShareSDKManager.getInstance().getCurrentSDK().share((Activity) this, shareItem);
     }
 
     private void initwebview(String url) {
@@ -146,7 +133,8 @@ public class WebViewActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+//        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+        ShareSDKManager.getInstance().getCurrentSDK().onActivityResult(this, requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
 }
