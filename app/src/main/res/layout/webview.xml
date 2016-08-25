@@ -17,11 +17,11 @@
 
             <ImageView
                 android:id="@+id/back"
-                android:layout_width="@dimen/space_90"
+                android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
-                android:paddingRight="@dimen/space_40"
-                android:src="@drawable/umeng_comm_back" />
+                android:paddingRight="20dp"
+                android:src="@mipmap/back" />
 
             <TextView
                 android:id="@+id/tv_course_title"
@@ -32,15 +32,15 @@
                 android:gravity="center"
                 android:text="War3社区"
                 android:textColor="@color/umeng_comm_black_color"
-                android:textSize="@dimen/text_size_40" />
+                android:textSize="20sp" />
 
             <ImageView
                 android:id="@+id/share"
-                android:layout_width="@dimen/space_90"
+                android:layout_width="46dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:paddingRight="@dimen/space_40"
+                android:paddingRight="10dp"
                 android:src="@mipmap/share" />
         </RelativeLayout>
     </LinearLayout>

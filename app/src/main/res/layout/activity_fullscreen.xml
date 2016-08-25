@@ -16,14 +16,6 @@
         android:keepScreenOn="true"
         android:src="@mipmap/guide_bg" />
 
-    <WebView
-        android:id="@+id/fullscreen_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:keepScreenOn="true"
-        android:visibility="gone" />
-
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
     <FrameLayout
@@ -37,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
-            android:background="@color/black_overlay"
+            android:background="@color/umeng_comm_color_transparent"
             android:orientation="horizontal"
             android:visibility="gone"
             tools:ignore="UselessParent">

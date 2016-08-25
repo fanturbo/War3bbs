@@ -9,6 +9,8 @@ import android.util.Log;
 
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVUser;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.comm.core.constants.Constants;
 import com.umeng.message.IUmengRegisterCallback;
@@ -80,6 +82,10 @@ public class CommunityApplication extends Application {
         CrashReport.initCrashReport(getApplicationContext(), "900044281", false);
         initDefaultCatch();
         AVOSCloud.initialize(this, "lEosXaVHjTFifebFQYQojDdv-gzGzoHsz", "qgFkDIsVBzMEPLo8vodz1oDP");
+        ImageLoaderConfiguration configuration = ImageLoaderConfiguration
+                .createDefault(this);
+        // Initialize ImageLoader with configuration.
+        ImageLoader.getInstance().init(configuration);
     }
 
     private void initDefaultCatch() {

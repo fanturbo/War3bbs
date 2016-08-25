@@ -12,6 +12,12 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
 import com.war3.comm.R;
 import com.war3.comm.base.BaseActivity;
 
@@ -20,12 +26,13 @@ public class WebViewActivity extends BaseActivity {
     private TextView tvCourseTitle;
     private WebView home_slider_webView;
     private String url = "";
+    private String name = "";
+    private String shareContent = "";
     private ProgressDialog progressDialog;
     private ImageView ivShare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.webview);
         tvCourseTitle = (TextView) findViewById(R.id.tv_course_title);
@@ -45,18 +52,46 @@ public class WebViewActivity extends BaseActivity {
             }
         });
         home_slider_webView = (WebView) findViewById(R.id.webView);
-        String name = "";
         Intent intent = getIntent();
         if (intent != null) {
             url = intent.getStringExtra("url");
-            name = intent.getStringExtra("name");
+            name = intent.getStringExtra("title");
+            shareContent = intent.getStringExtra("shareContent");
         }
         tvCourseTitle.setText(name);
         initwebview(url);
     }
 
     private void initShare() {
+        UMShareListener umShareListener = new UMShareListener() {
+            @Override
+            public void onResult(SHARE_MEDIA platform) {
+                if (platform.name().equals("WEIXIN_FAVORITE")) {
+                    Toast.makeText(WebViewActivity.this, platform + " 收藏成功啦", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(WebViewActivity.this, platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
+                }
+            }
 
+            @Override
+            public void onError(SHARE_MEDIA platform, Throwable t) {
+                Toast.makeText(WebViewActivity.this, platform + " 分享失败啦", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancel(SHARE_MEDIA platform) {
+                Toast.makeText(WebViewActivity.this, platform + " 分享取消了", Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        new ShareAction(this)
+                .setDisplayList(SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
+                .withTitle(name)
+                .withText(shareContent)
+                .withMedia(new UMImage(this, "http://ac-leosxavh.clouddn.com/QCSxjZi1QKAmPJi7byZ2FkaW0EttwbnLdXQsGriR.png"))
+                .withTargetUrl(url)
+                .setCallback(umShareListener)
+                .open();
     }
 
     private void initwebview(String url) {
@@ -107,5 +142,11 @@ public class WebViewActivity extends BaseActivity {
             }
         });
         home_slider_webView.loadUrl(url);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
