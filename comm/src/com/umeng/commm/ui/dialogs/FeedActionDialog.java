@@ -28,6 +28,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
+import android.media.Image;
 import android.os.Build;
 import android.text.TextUtils;
 import android.view.View;
@@ -121,6 +122,10 @@ public class FeedActionDialog extends ActionDialog {
                 List<ImageItem> imageItems = mFeedItem.imageUrls;
                 if (imageItems != null && imageItems.size() > 0) {
                     shareItem.mImageItem = imageItems.get(0);
+                }else{
+                    ImageItem imageItem = new ImageItem();
+                    imageItem.thumbnail = "http://ac-leosxavh.clouddn.com/QCSxjZi1QKAmPJi7byZ2FkaW0EttwbnLdXQsGriR.png";
+                    shareItem.mImageItem = imageItem;
                 }
                 shareItem.mTargetUrl = mFeedItem.shareLink;
                 if (TextUtils.isEmpty(shareItem.mTargetUrl) && mFeedItem.sourceFeed != null) {
