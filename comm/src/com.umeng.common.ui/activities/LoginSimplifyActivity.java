@@ -2,6 +2,7 @@ package com.umeng.common.ui.activities;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -214,14 +215,13 @@ public class LoginSimplifyActivity extends BaseActivity implements View.OnClickL
                 this.isHidde = true;
             }
         } else if (v.getId() == ResContainer.getResourceId(this, "id", "sina_platform_btn")) {
-            Toast.makeText(this, "暂时不支持新浪微博", Toast.LENGTH_SHORT).show();
-//            this.login(this, SHARE_MEDIA.SINA);
+//            Toast.makeText(this, "暂时不支持新浪微博", Toast.LENGTH_SHORT).show();
+            this.login(this, SHARE_MEDIA.SINA);
         } else if (v.getId() == ResContainer.getResourceId(this, "id", "qq_platform_btn")) {
             this.login(this, SHARE_MEDIA.QQ);
         } else if (v.getId() == ResContainer.getResourceId(this, "id", "weixin_platform_btn")) {
             this.login(this, SHARE_MEDIA.WEIXIN);
         }
-
     }
 
     private void login(final Context context, final SHARE_MEDIA platform) {
@@ -364,5 +364,10 @@ public class LoginSimplifyActivity extends BaseActivity implements View.OnClickL
     protected void onDestroy() {
         mLoginListener = null;
         super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 }

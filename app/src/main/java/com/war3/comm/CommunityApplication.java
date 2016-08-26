@@ -18,6 +18,7 @@ import com.umeng.message.PushAgent;
 import com.umeng.message.UHandler;
 import com.umeng.message.UmengMessageHandler;
 import com.umeng.message.entity.UMessage;
+import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 
 import org.json.JSONObject;
@@ -31,8 +32,9 @@ public class CommunityApplication extends Application {
         super.onCreate();
         PlatformConfig.setWeixin("wxc93179c06472dbbe", "cf09bf5306caceb527a85c119af33000");
         //新浪微博
-//        PlatformConfig.setSinaWeibo("275392174", "d96fb6b323c60a42ed9f74bfab1b4f7a");
+        PlatformConfig.setSinaWeibo("1679510560", "906eabdb45810952ec051de5827145fc");
         PlatformConfig.setQQZone("1105592918", "yQlLNt8zYQYAF9OD");
+        Config.REDIRECT_URL = "http://sns.whalecloud.com/sina2/callback";
         PushAgent.getInstance(this).setDebugMode(true);
         PushAgent.getInstance(this).setMessageHandler(new UmengMessageHandler() {
             @Override

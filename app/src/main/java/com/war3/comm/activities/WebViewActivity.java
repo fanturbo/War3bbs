@@ -41,6 +41,12 @@ public class WebViewActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.webview);
+        Intent intent = getIntent();
+        if (intent != null) {
+            url = intent.getStringExtra("url");
+            name = intent.getStringExtra("title");
+            shareText = intent.getStringExtra("shareContent");
+        }
         tvCourseTitle = (TextView) findViewById(R.id.tv_course_title);
         ivShare = (ImageView) findViewById(R.id.share);
         ivShare.setOnClickListener(new OnClickListener() {
@@ -58,12 +64,7 @@ public class WebViewActivity extends BaseActivity {
             }
         });
         home_slider_webView = (WebView) findViewById(R.id.webView);
-        Intent intent = getIntent();
-        if (intent != null) {
-            url = intent.getStringExtra("url");
-            name = intent.getStringExtra("title");
-            shareText = intent.getStringExtra("shareContent");
-        }
+
         tvCourseTitle.setText(name);
         initwebview(url);
     }
@@ -74,8 +75,7 @@ public class WebViewActivity extends BaseActivity {
         ImageItem imageItem = new ImageItem();
         imageItem.thumbnail = "http://ac-leosxavh.clouddn.com/QCSxjZi1QKAmPJi7byZ2FkaW0EttwbnLdXQsGriR.png";
         shareItem.mImageItem = imageItem;
-        shareItem.mTargetUrl = "http://wsq.umeng.com/feeds/57b6a224ee78506ad9bc1bef/";
-
+        shareItem.mTargetUrl = url;
         shareItem.mFeedId = "57b6a224ee78506ad9bc1bef";
         shareItem.mTitle = name;
         ShareSDKManager.getInstance().getCurrentSDK().share((Activity) this, shareItem);
