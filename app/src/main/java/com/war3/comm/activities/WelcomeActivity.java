@@ -103,14 +103,19 @@ public class WelcomeActivity extends Activity {
             name.getFirstInBackground(new GetCallback<AVObject>() {
                 @Override
                 public void done(AVObject avObject, AVException e) {
-                    title = avObject.get("name").toString();
-                    url = avObject.get("url").toString();
-                    shareContent = avObject.get("share_content").toString();
-                    Message message = new Message();
-                    message.obj = avObject.get("imageUrl").toString();
-                    message.what = 1000;
-                    handler.removeCallbacks(runnable);
-                    handler.sendMessageDelayed(message, 1500);
+                    String showAd = avObject.get("show").toString();
+                    if("0".equals(showAd)){
+                        return;
+                    }else {
+                        title = avObject.get("name").toString();
+                        url = avObject.get("url").toString();
+                        shareContent = avObject.get("share_content").toString();
+                        Message message = new Message();
+                        message.obj = avObject.get("imageUrl").toString();
+                        message.what = 1000;
+                        handler.removeCallbacks(runnable);
+                        handler.sendMessageDelayed(message, 1500);
+                    }
                 }
             });
             handler.postDelayed(runnable, 3000);
