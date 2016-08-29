@@ -33,9 +33,6 @@ import com.umeng.comm.core.sdkmanager.LoginSDKManager;
 import com.umeng.common.ui.presenter.impl.LoginSimplify;
 import com.umeng.common.ui.util.CommonLoginStrategy;
 import com.war3.comm.R;
-import com.war3.comm.utils.HttpUtil;
-import com.war3.comm.utils.HttpUtil.OnResponse;
-import com.xiaomi.market.sdk.XiaomiUpdateAgent;
 
 public class WelcomeActivity extends Activity {
 
@@ -89,7 +86,6 @@ public class WelcomeActivity extends Activity {
         MobclickAgent.openActivityDurationTrack(false);
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
         MobclickAgent.setCatchUncaughtExceptions(false);
-        XiaomiUpdateAgent.update(this);
         // 1、初始化友盟微社区
         mCommSDK = CommunityFactory.getCommSDK(this);
         useCustomLogin();

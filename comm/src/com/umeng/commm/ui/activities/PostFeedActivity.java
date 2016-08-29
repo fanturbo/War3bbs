@@ -760,21 +760,6 @@ public class PostFeedActivity extends BaseFragmentActivity implements OnClickLis
 
         } else if (ResFinder.getId("umeng_comm_post_back_btn") == id) { // 点击back按钮
             closeActivity();
-        } else if (ResFinder.getId("umeng_comm_take_photo_btn") == id) { // 拍照按钮
-            mTakePhotoPresenter.takePhoto();
-            changeButtonStatus(false, false);
-        } else if (ResFinder.getId("umeng_comm_select_location_btn") == id) { // 选择位置
-            showLocPickerDlg();
-            changeButtonStatus(false, false);
-        } else if (ResFinder.getId("umeng_comm_add_image_btn") == id) { // 添加图片
-            pickImages();
-            changeButtonStatus(true, false);
-        } else if (ResFinder.getId("umeng_comm_at_friend_btn") == id) { // @好友
-            showAtFriendsDialog();
-            changeButtonStatus(false, false);
-        } else if (ResFinder.getId("umeng_comm_pick_topic_btn") == id) { // 选择话题
-            showTopicFragment();
-            changeButtonStatus(false, true);
         } else if (ResFinder.getId("umeng_comm_select_emoji_btn") == id) { // 选择话题
             if (mEmojiBoard.getVisibility() == View.VISIBLE) { // 显示输入法，隐藏表情board
                 mEmojiBoard.setVisibility(View.GONE);
