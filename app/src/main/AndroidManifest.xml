@@ -354,11 +354,6 @@
         </service>
         <!-- If you donot want to use the standard notification bar in SDK, you can define IntentService instead to handle message. -->
         <!-- 小米更新 -->
-        <receiver android:name="com.xiaomi.market.sdk.DownloadCompleteReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
-            </intent-filter>
-        </receiver>
 
         <service
             android:name="com.umeng.message.UmengDownloadResourceService"
