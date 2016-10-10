@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.war3.comm"
-    android:versionCode="1"
-    android:versionName="1.0">
+    android:versionCode="2"
+    android:versionName="1.1">
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -214,7 +214,9 @@
 
         <!-- 图片选择相关 -->
 
-        <activity android:name="com.umeng.common.ui.imagepicker.PhotoSelectorActivity" />
+        <activity
+            android:name="com.umeng.common.ui.imagepicker.PhotoSelectorActivity"
+            android:theme="@style/UmengDefault" />
         <activity android:name="com.umeng.common.ui.imagepicker.PhotoPreviewActivity" />
         <activity
             android:name="com.umeng.common.ui.activities.MessageChatActivity"

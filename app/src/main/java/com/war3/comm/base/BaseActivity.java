@@ -2,6 +2,7 @@ package com.war3.comm.base;
 
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 
 import com.umeng.analytics.MobclickAgent;
@@ -10,7 +11,7 @@ import com.umeng.analytics.MobclickAgent;
 /**
  * Created by snail on 16/8/3.
  */
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends FragmentActivity {
 
     private String mPageName;
 

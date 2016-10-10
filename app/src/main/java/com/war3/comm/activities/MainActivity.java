@@ -1,6 +1,7 @@
 
 package com.war3.comm.activities;
 
+import android.Manifest;
 import android.app.DownloadManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -23,11 +25,13 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.GetCallback;
+import com.umeng.comm.core.sdkmanager.ImageLoaderManager;
 import com.umeng.comm.core.sdkmanager.ShareSDKManager;
 import com.umeng.commm.ui.fragments.CommunityMainFragment;
 import com.umeng.common.ui.widgets.CommunityViewPager;
 import com.war3.comm.R;
 import com.war3.comm.base.BaseActivity;
+import com.war3.comm.custom.UILImageLoader;
 import com.war3.comm.utils.DialogHelp;
 import com.war3.comm.utils.SharedPreferencesUtils;
 
@@ -42,6 +46,7 @@ public class MainActivity extends BaseActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        useMyImageLoader();
         CommunityViewPager viewPager = (CommunityViewPager) findViewById(R.id.viewPager);
         FragmentPagerAdapter adapter = new FragmentPagerAdapter(
                 getSupportFragmentManager()) {
@@ -72,10 +77,10 @@ public class MainActivity extends BaseActivity {
         //设置ViewPager的Adapter
         viewPager.setAdapter(adapter);
         /**如果使用android6.0适配，需要加入以下代码，获取对应权限*/
-      /*  String[] mPermissionList = new String[]{Manifest.permission.CHANGE_CONFIGURATION,Manifest.permission.CHANGE_WIFI_STATE,Manifest.permission.WAKE_LOCK,Manifest.permission.WRITE_SETTINGS,Manifest.permission.VIBRATE,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_LOGS,Manifest.permission.READ_PHONE_STATE};
+        String[] mPermissionList = new String[]{Manifest.permission.CHANGE_CONFIGURATION,Manifest.permission.CHANGE_WIFI_STATE,Manifest.permission.WAKE_LOCK,Manifest.permission.WRITE_SETTINGS,Manifest.permission.VIBRATE,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_LOGS, Manifest.permission.READ_PHONE_STATE};
         if(Build.VERSION.SDK_INT>=23){
             requestPermissions(mPermissionList,100);
-        }*/
+        }
         //检查更新
         if (!(Calendar.getInstance().get(Calendar.DAY_OF_YEAR) + "").equals(SharedPreferencesUtils.getString(MainActivity.this,
                 "dayofyear", "0"))) {
@@ -84,7 +89,17 @@ public class MainActivity extends BaseActivity {
             checkUpdate();
         }
     }
-
+    /**
+     * 自定义自己的ImageLoader
+     */
+    protected void useMyImageLoader() {
+        //
+        final String imageLoadKey = UILImageLoader.class.getSimpleName();
+        // 使用第三方ImageLoader库,添加到sdk manager中, 并且使用useThis来使用该加载器.
+        ImageLoaderManager manager = ImageLoaderManager.getInstance();
+        manager.addImpl(imageLoadKey, new UILImageLoader(this));
+        manager.useThis(imageLoadKey);
+    }
     public void checkUpdate() {
         AVQuery<AVObject> avQuery = new AVQuery<>("Update");
         AVQuery<AVObject> name = avQuery.limit(1);
